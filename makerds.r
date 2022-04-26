@@ -22,6 +22,7 @@ b$antidepressants<-ad$antidepressants %>% as.numeric
 
 b$ECT_Before_1_year <- ifelse(is.na(a$ECT_Before_1_year),0,ifelse(a$ECT_Before_1_year=="Yes",1,0))
 b$BST_Before_1_year <- ifelse(is.na(a$BST_Before_1_year),0,ifelse(a$BST_Before_1_year=="Yes",1,0))
+b$Lithium_and_ECT <- as.integer(b$Lithium & b$ECT_Before_1_year)
 
 af<-names(b)
 b[,(af):=lapply(.SD,function(x){
@@ -39,11 +40,11 @@ b$Patient <- ifelse(a$Patient=="N/A",NA,a$Patient)
 
 b$Sex <- a$Sex %>% as.factor
 
-#-172<=Age<=4848 ÀÌ¾î¼­ 0~120¾Æ´Ï¸é NAÇÔ
+#-172<=Age<=4848 ?Ì¾î¼­ 0~120?Æ´Ï¸? NA??
 b$Age <- ifelse(a$Age>=0 & a$Age<=120, a$Age, NA)
-#-999<=Weight<=999 ÀÌ¾î¼­ 30~180¾Æ´Ï¸é NAÇÔ
+#-999<=Weight<=999 ?Ì¾î¼­ 30~180?Æ´Ï¸? NA??
 b$Weight <- ifelse(a$Weight>30 & a$Weight<=180, a$Weight, NA)
-#72<=Height<=1999 ÀÌ¾î¼­ 0~280¾Æ´Ï¸é NAÇÔ
+#72<=Height<=1999 ?Ì¾î¼­ 0~280?Æ´Ï¸? NA??
 b$Height <- ifelse(a$Height<280,a$Height,NA)
 b$BMI <- b$Weight/(b$Height/100 * b$Height/100)
 

@@ -5,8 +5,8 @@ setwd("/home/heejooko/ShinyApps/HYUPSYML2")
 a <- data.table(readRDS("REAP-BD-20220307.rds"))
 
 varlist <- list(
-  "Outcome" = names(a)[1:10],
-  "Variables" = names(a)[c(11:15,18:30)]
+  "Outcome" = names(a)[1:11],
+  "Variables" = names(a)[c(12:16,19:31)]
 )
 
 out <- a[, .SD, .SDcols = unlist(varlist)] %>% na.omit

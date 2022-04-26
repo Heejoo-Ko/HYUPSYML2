@@ -258,11 +258,10 @@ server <- function(input, output, session) {
                    
                    
                    rf1 <- train(as.formula(paste0(input$dep_ml, " ~", paste(input$indep_ml, collapse = "+"))), data = data.train, method = method,
-                                trControl = fitControl, tuneGrid=tunegrid)
-                   pred <- data.frame("Obs" = data.test[[input$dep_ml]], "Pred" = predict(rf1, data.test))
+                                trControl = fitControl, tuneGrid = tunegrid)
+                   pred <- data.frame("Obs" = data.test[[input$dep_ml]], "Pred" = predict(rf1, data.test, type = "prob")[, 2])
                    
-                   
-                   return(list(obj = rf1, pred = pred, cmat = confusionMatrix(pred$Obs, pred$Pred)))
+                   return(list(obj = rf1, pred = pred, cmat = confusionMatrix(pred$Obs, predict(rf1, data.test))))
                    
                  })
     
